@@ -23,9 +23,17 @@ import LoadingSpinner from "./components/ui/LoadingSpinner"
 function App() {
   const dispatch = useDispatch()
 
+  // useEffect(() => {
+  //   dispatch(getCurrentUser()) // This will auto-handle token from localStorage
+  // }, [])
+
   useEffect(() => {
-    dispatch(getCurrentUser()) // This will auto-handle token from localStorage
-  }, [])
+  const token = localStorage.getItem("token")
+  if (token) {
+    dispatch(getCurrentUser())
+  }
+}, [])
+
   const { isAuthenticated, loading } = useSelector((state) => state.auth)
 
   if (loading) {

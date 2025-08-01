@@ -135,6 +135,9 @@ router.get("/me", protect, async (req, res) => {
     success: true,
     data: {
       user: req.user,
+      name: req.user.name,
+      email: req.user.email,
+      role: req.user.role,
     },
   })
 })
