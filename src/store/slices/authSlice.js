@@ -157,8 +157,8 @@ export const loginUser = createAsyncThunk("auth/login", async ({ email, password
       
     localStorage.setItem("token", response?.data?.data?.token)
     console.log("Token after login:", localStorage.getItem("token"))
-
-    return response.data
+//here change
+    return response.data.data
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Login failed")
   }

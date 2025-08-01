@@ -5,6 +5,7 @@ import { dashboardAPI } from "../../services/api"
 export const getDashboards = createAsyncThunk("dashboard/getDashboards", async (params = {}, { rejectWithValue }) => {
   try {
     const response = await dashboardAPI.getDashboards(params)
+        console.log("Fetched dashboards:", response.data)
     return response.data
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to fetch dashboards")
@@ -23,6 +24,7 @@ export const getDashboard = createAsyncThunk("dashboard/getDashboard", async (id
 export const createDashboard = createAsyncThunk("dashboard/createDashboard", async (data, { rejectWithValue }) => {
   try {
     const response = await dashboardAPI.createDashboard(data)
+    console.log("✅ Created dashboard:", response.data) //
     return response.data
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to create dashboard")
@@ -91,7 +93,8 @@ const dashboardSlice = createSlice({
       })
       .addCase(getDashboards.fulfilled, (state, action) => {
         state.loading = false
-        state.dashboards = action.payload.dashboards
+        // state.dashboards = action.payload.dashboards
+          state.dashboards = action.payload.data.dashboards 
         state.pagination = action.payload.pagination
       })
       .addCase(getDashboards.rejected, (state, action) => {
@@ -118,7 +121,8 @@ const dashboardSlice = createSlice({
       })
       .addCase(createDashboard.fulfilled, (state, action) => {
         state.loading = false
-        state.dashboards.unshift(action.payload.dashboard)
+        // state.dashboards.unshift(action.payload.dashboard)
+        state.dashboards.unshift(action.payload.data.dashboard) 
       })
       .addCase(createDashboard.rejected, (state, action) => {
         state.loading = false
