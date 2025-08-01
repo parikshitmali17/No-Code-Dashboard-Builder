@@ -150,10 +150,12 @@ export const loginUser = createAsyncThunk("auth/login", async ({ email, password
      console.log("Login API response", response.data) // 👈 Add this
 
       // This might be undefined:
+         console.log("Full login API response:", response)
+    console.log("Token found at:", response?.data?.token)
       console.log("Token received:", response?.data?.token)
 
       
-    localStorage.setItem("token", response.data.token)
+    localStorage.setItem("token", response?.data?.data?.token)
     console.log("Token after login:", localStorage.getItem("token"))
 
     return response.data
@@ -161,10 +163,6 @@ export const loginUser = createAsyncThunk("auth/login", async ({ email, password
     return rejectWithValue(error.response?.data?.message || "Login failed")
   }
 })
-
-
-
-
 
 
 export const signupUser = createAsyncThunk(

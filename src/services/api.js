@@ -182,7 +182,9 @@ export const authAPI = {
 export const dashboardAPI = {
   getDashboards: (params = {}) => api.get("/dashboards", { params }),
   getDashboard: (id) => api.get(`/dashboards/${id}`),
-  createDashboard: (data) => api.post("/dashboards", data),
+  createDashboard: (data) =>{ 
+     console.log("Creating dashboard with token:", localStorage.getItem("token"))
+    api.post("/dashboards", data)},
   updateDashboard: (id, data) => api.put(`/dashboards/${id}`, data),
   deleteDashboard: (id) => api.delete(`/dashboards/${id}`),
   addCollaborator: (id, data) => api.post(`/dashboards/${id}/collaborators`, data),
